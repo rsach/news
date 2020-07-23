@@ -1,0 +1,42 @@
+table {
+  border-collapse: collapse;
+  thead {
+    background-color: rgb(255, 102, 0);
+    border: none;
+    th {
+      color: white;
+    }
+  }
+  tbody {
+    tr {
+      td {
+        padding: 1rem;
+        &:last-child {
+          a {
+            &:first-child {
+              color: #8b8c89;
+              text-decoration: none;
+            }
+          }
+          span {
+            color: #8b8c89;
+          }
+          span:first-child {
+            color: #c0bfbe;
+          }
+        }
+      }
+
+      &:nth-child(even) {
+        background: #e4e5de;
+      }
+    }
+  }
+}
+.container {
+  color: rgb(255, 102, 0);
+  * {
+    padding: 0.2rem;
+    font-weight: 600;
+  }
+}
