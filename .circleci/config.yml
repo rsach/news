@@ -1,13 +1,10 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
+  angular: okode/angular@1.0.67
 jobs:
   build-and-test:
-    executors:
+    executor:
       name: node/default
-      browsers:
-        docker:
-          - image: circleci/node:browsers
     steps:
       - checkout
       - node/with-cache:
