@@ -7,8 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import * as fromRoot from '../../reducers/index';
 import * as fromActions from '../../state-management/actions/news.action';
 
-// const data = {"created_at":"2018-03-14T03:50:30.000Z","title":"Stephen Hawking has died","url":"http://www.bbc.com/news/uk-43396008","author":"Cogito","points":6015,"story_text":null,"comment_text":null,"num_comments":436,"story_id":null,"story_title":null,"story_url":null,"parent_id":null,"created_at_i":1520999430,"relevancy_score":8012,"_tags":["story","author_Cogito","story_16582136"],"objectID":"16582136","_highlightResult":{"title":{"value":"Stephen Hawking has died","matchLevel":"none","matchedWords":[]},"url":{"value":"http://www.bbc.com/news/uk-43396008","matchLevel":"none","matchedWords":[]},"author":{"value":"Cogito","matchLevel":"none","matchedWords":[]}}}
-
 describe('TableComponent', () => {
   let component: TableComponent;
   let fixture: ComponentFixture<TableComponent>;
@@ -50,7 +48,6 @@ describe('TableComponent', () => {
   });
 
   it('should render zero tr', () => {
-    const fixture = TestBed.createComponent(TableComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('tbody').children.length).toBe(0);
@@ -71,11 +68,11 @@ describe('TableComponent', () => {
   });
 
   it('should get previous page not less than 0', () => {
-    TestBed.get(ActivatedRoute).queryParams = of({});
+    TestBed.inject(ActivatedRoute).queryParams = of({});
     fixture.detectChanges();
     const a = fromActions.getNewsByPage({ page: 0 });
     expect(store.dispatch).toHaveBeenCalledWith(a);
-    TestBed.get(ActivatedRoute).snapshot.queryParams = { page: 0 };
+    TestBed.inject(ActivatedRoute).snapshot.queryParams = { page: 0 };
     fixture.detectChanges();
     component.onPrevious();
     expect(store.dispatch).toHaveBeenCalledWith(a);
@@ -85,7 +82,7 @@ describe('TableComponent', () => {
     fixture.detectChanges();
     const hits = null;
     component.onVote(hits);
-    const a = fromActions.onAddVote({ hits: hits });
+    const a = fromActions.onAddVote({ hits });
     expect(store.dispatch).toHaveBeenCalledWith(a);
   });
 
@@ -93,7 +90,7 @@ describe('TableComponent', () => {
     fixture.detectChanges();
     const hits = null;
     component.onHide(hits);
-    const a = fromActions.onHide({ hits: hits });
+    const a = fromActions.onHide({ hits });
     expect(store.dispatch).toHaveBeenCalledWith(a);
   });
 });

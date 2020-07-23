@@ -8,7 +8,6 @@ import {
 
 describe('ApiService', () => {
   let service: ApiService;
-  // let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,8 +20,8 @@ describe('ApiService', () => {
     expect(service).toBeTruthy();
   });
   it('should be created', inject(
-    [HttpTestingController, ApiService],
-    (httpMock: HttpTestingController, service: ApiService) => {
+    [HttpTestingController],
+    (httpMock: HttpTestingController) => {
       const data = {
         hits: [],
         page: 0,
