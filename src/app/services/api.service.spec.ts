@@ -36,7 +36,7 @@ describe('ApiService', () => {
         expect(res).toBe(data);
       });
       const req = httpMock.expectOne(
-        'http://hn.algolia.com/api/v1/search?page=0'
+        'https://hn.algolia.com/api/v1/search?page=0'
       );
       expect(req.request.method).toEqual('GET');
 
