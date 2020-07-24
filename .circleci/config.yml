@@ -16,8 +16,8 @@ jobs:
           key: AngularCircleCI-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - "node_modules"
-      - run: xvfb-run -a npm run build:ssr
       - run: xvfb-run -a npm run lint
+      - run: xvfb-run -a npm run build:ssr
       - run: xvfb-run -a npm run test --no-progress --browsers=ChromeNoSandbox
       - run:
           command: |
