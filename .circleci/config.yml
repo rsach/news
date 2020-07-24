@@ -24,7 +24,7 @@ jobs:
                   docker build -t registry.heroku.com/$APP_NAME/web .
       - run:
           command: |
-                  docker login --email=$HEROKU_LOGIN --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+                  docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
       - run:
           command: |
                   docker push registry.heroku.com/$APP_NAME/web:latest
