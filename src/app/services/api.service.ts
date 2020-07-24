@@ -10,7 +10,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   get(params): Observable<INewsApiResponse> {
-    return this.http.get(`http://hn.algolia.com/api/v1/search`, {
+    return this.http.get(`https://hn.algolia.com/api/v1/search`, {
       params
     }) as Observable<INewsApiResponse>;
   }
