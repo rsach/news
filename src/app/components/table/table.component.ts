@@ -6,12 +6,13 @@ import {
   PLATFORM_ID,
   OnDestroy
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import * as newsActions from '../../state-management/actions/news.action';
 import * as fromRoot from '../../reducers';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, pipe } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table',
@@ -23,12 +24,19 @@ export class TableComponent implements OnInit, OnDestroy {
   hits$ = this.store.pipe(select(fromRoot.selectedPage));
   unsub: Subscription[] = [];
 
-  constructor(private ar: ActivatedRoute, private store: Store) {}
+  constructor(
+    private ar: ActivatedRoute,
+    private store: Store,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    const unsub = this.ar.queryParams.subscribe(res =>
-      this.store.dispatch(newsActions.getNewsByPage({ page: +res.page || 0 }))
-    );
+    const unsub = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(res => {
+        const page = +this.ar.snapshot.queryParams.page || 0;
+        this.store.dispatch(newsActions.getNewsByPage({ page }));
+      });
     this.unsub.push(unsub);
   }
 

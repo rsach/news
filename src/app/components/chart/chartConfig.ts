@@ -17,6 +17,9 @@ export const chartConfig = {
     ],
     yAxes: [
       {
+        ticks: {
+          beginAtZero: true
+        },
         scaleLabel: {
           display: true,
           labelString: 'Votes',
@@ -24,5 +27,6 @@ export const chartConfig = {
         }
       }
     ]
-  }
+  },
+  animation: false
 };

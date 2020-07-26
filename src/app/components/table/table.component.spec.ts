@@ -3,9 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TableComponent } from './table.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd } from '@angular/router';
 import * as fromRoot from '../../reducers/index';
 import * as fromActions from '../../state-management/actions/news.action';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -25,8 +27,15 @@ describe('TableComponent', () => {
             queryParams: of({ page: 1 }),
             snapshot: { queryParams: { page: 1 } }
           }
+        },
+        {
+          provide: Router,
+          useValue: {
+            events: of(new NavigationEnd(1, '/?id=1', ''))
+          }
         }
-      ]
+      ],
+      imports: [RouterTestingModule]
     }).compileComponents();
   }));
 
@@ -68,7 +77,7 @@ describe('TableComponent', () => {
   });
 
   it('should get previous page not less than 0', () => {
-    TestBed.inject(ActivatedRoute).queryParams = of({});
+    TestBed.inject(ActivatedRoute).snapshot.queryParams = {};
     fixture.detectChanges();
     const a = fromActions.getNewsByPage({ page: 0 });
     expect(store.dispatch).toHaveBeenCalledWith(a);

@@ -9,7 +9,7 @@
     <tr *ngFor="let i of hits$ | async">
       <ng-container *ngIf="!i?.hide">
         <td>{{ i?.num_comments }}</td>
-        <td>{{ i?.points }}</td>
+        <td>{{ i?.vote }}</td>
         <td>
           <a (click)="onVote(i)">
             <svg

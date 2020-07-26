@@ -68,7 +68,8 @@ export class NewsEffects {
       ofType(newActions.onAddVote),
       switchMap(({ hits }) => {
         const newHits = { ...hits };
-        newHits.points += 1;
+        newHits.vote = newHits.vote || 0;
+        newHits.vote += 1;
 
         return of(newActions.onUpdate({ hits: newHits }));
       })

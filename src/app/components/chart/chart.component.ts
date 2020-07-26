@@ -57,9 +57,21 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       options: chartConfig
     });
     const unsub = this.hits$.subscribe((res: IHits[]) => {
-      const labels = res.map(d => d.objectID);
-      const vote = res.map(d => d.points);
-      chart.config.data = { labels, datasets: [{ data: vote, fill: false }] };
+      const news = res.filter(d => !d.hide);
+      const labels = news.map(d => d.objectID);
+      const vote = news.map(d => d.vote);
+      chart.config.data = {
+        labels,
+        datasets: [
+          {
+            data: vote,
+            fill: false,
+            borderColor: '#20669b',
+            pointBackgroundColor: '#20669b',
+            pointBorderColor: '#20669b'
+          }
+        ]
+      };
       chart.update();
     });
     this.unsub.push(unsub);

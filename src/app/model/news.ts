@@ -25,6 +25,7 @@ export interface IHits {
   story_id: number;
   story_title: string;
   story_url: string;
+  vote: number;
   _highlightResult: IHighlightResult;
   _tags: string[];
   hide?: boolean;
